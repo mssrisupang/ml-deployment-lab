@@ -302,3 +302,16 @@ docker run --rm -p 5000:5000 ds-ml-service
 - ในไฟล์ README.md ให้ระบุวิธีการ build และ run
 - แนบภาพหน้าจอของหน้าเว็บที่ทำนายผลสำเร็จ
 - ส่งลิงก์ GitHub repository ผ่านระบบตามที่อาจารย์กำหนด
+
+## 6. ปัญหาที่พบบ่อยและแนวทางแก้ไข
+
+- ข้อความ `gunicorn: not found` → เพิ่ม `gunicorn` ใน requirements.txt แล้ว build ใหม่
+- ข้อความ `TemplateNotFound: main.html` → ตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ `templates/`
+- ข้อความ `FileNotFoundError: model.pkl` → ตรวจสอบว่ารัน `train_model.py` แล้ว
+- ข้อความ `read-only file system` → ตรวจสอบให้ Drive C มีพื้นที่ว่างอย่างน้อย 5 GB แล้วรีสตาร์ท Docker
+- หากพอร์ต `5000` ถูกใช้งาน → ใช้พอร์ตอื่น เช่น `-p 8080:5000`
+
+## 7. หมายเหตุเพิ่มเติม
+- นิสิตควรใช้โครงสร้างเดียวกันทั้งหมดเพื่อให้ Docker รันได้ถูกต้อง
+- หากต้องการทดสอบก่อน `build Docker` ให้สร้าง `virtual environment (python -m venv .venv)` แล้วติดตั้ง dependencies ตาม requirements.txt
+- ควรเพิ่มไฟล์ `.gitignore` เพื่อไม่ให้ไฟล์ขนาดใหญ่เช่น `model.pkl` ถูก push ไป GitHub โดยไม่จำเป็น
