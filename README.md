@@ -301,7 +301,7 @@ docker run --rm -p 5000:5000 ds-ml-service
 - Push โค้ดทั้งหมด (รวมถึง Dockerfile และ README.md) ไปยัง GitHub
 - ในไฟล์ README.md ให้ระบุวิธีการ build และ run
 - แนบภาพหน้าจอของหน้าเว็บที่ทำนายผลสำเร็จ
-- ส่งลิงก์ GitHub repository ผ่านระบบตามที่อาจารย์กำหนด
+- ส่งลิงก์ GitHub repository ผ่านระบบ (Google Form)[https://forms.gle/D8UCryawXbEn4FSe7]
 
 ## 6. ปัญหาที่พบบ่อยและแนวทางแก้ไข
 
