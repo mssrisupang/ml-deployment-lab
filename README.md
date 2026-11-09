@@ -67,38 +67,38 @@ print("บันทึกโมเดลเรียบร้อยที่ mod
 from flask import Flask, request, jsonify, render_template
 import joblib, numpy as np, os
 
-BASE_DIR = os.path.dirname(os.path.abspath(**file**))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model", "model.pkl")
 model = joblib.load(MODEL_PATH)
 
 FEATURES = ["MedInc","HouseAge","AveRooms","AveBedrms","Population","AveOccup","Latitude","Longitude"]
 
-app = Flask(**name**, template_folder="templates")
+app = Flask(__name__, template_folder="templates")
 
 @app.get("/health")
 def health():
-return {"ok": True, "features": FEATURES}
+    return {"ok": True, "features": FEATURES}
 
 @app.post("/predict")
 def predict():
-data = request.get_json(silent=True) or {}
-x = data.get("features")
-if not x or len(x) != len(FEATURES):
-return jsonify(error=f"Expected 8 features: {FEATURES}"), 400
-X = np.array([x], dtype=float)
-yhat = model.predict(X).tolist()[0]
-return jsonify(prediction=yhat)
+    data = request.get_json(silent=True) or {}
+    x = data.get("features")
+    if not x or len(x) != len(FEATURES):
+        return jsonify(error=f"Expected 8 features: {FEATURES}"), 400
+    X = np.array([x], dtype=float)
+    yhat = model.predict(X).tolist()[0]
+    return jsonify(prediction=yhat)
 
 @app.route("/", methods=["GET", "POST"])
 def main():
-if request.method == "GET":
-return render_template("main.html")
-vals = [float(request.form.get(f)) for f in FEATURES]
-pred = model.predict(np.array([vals])).tolist()[0]
-return render_template("main.html", prediction=pred)
+    if request.method == "GET":
+        return render_template("main.html")
+    vals = [float(request.form.get(f)) for f in FEATURES]
+    pred = model.predict(np.array([vals])).tolist()[0]
+    return render_template("main.html", prediction=pred)
 
-if **name** == "**main**":
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
 ```
 ---
 ### 3.4 สร้างหน้าเว็บสำหรับทดสอบ
@@ -245,12 +245,12 @@ app.run(debug=True)
 ### 3.5 สร้างไฟล์ requirements.txt
 
 ```
-flask
-gunicorn
-numpy
-scikit-learn
-joblib
-pandas
+flask==3.1.3
+gunicorn==26.2.0
+numpy==2.4.6
+scikit-learn==1.9.1
+joblib==1.6.0
+pandas==3.1.1
 ```
 ---
 ### 3.6 สร้างไฟล์ Dockerfile
@@ -312,7 +312,7 @@ docker run --rm -p 5000:5000 ds-ml-service
 - Push โค้ดทั้งหมด (รวมถึง Dockerfile และ README.md) ไปยัง GitHub
 - ในไฟล์ README.md ให้ระบุวิธีการ build และ run
 - แนบภาพหน้าจอของหน้าเว็บที่ทำนายผลสำเร็จ
-- ส่งลิงก์ GitHub repository ผ่านระบบ (Google Form)[https://forms.gle/D8UCryawXbEn4FSe7]
+- ส่งลิงก์ GitHub repository ผ่านระบบ [Google Form](https://forms.gle/D8UCryawXbEn4FSe7)
 
 ## 6. ปัญหาที่พบบ่อยและแนวทางแก้ไข
 
