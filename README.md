@@ -304,7 +304,12 @@ docker run --rm -p 5000:5000 ds-ml-service
  `{"features":[8.3,25.0,6.0,1.0,1200,3.0,34.2,-118.3]}`
 
 ผลลัพธ์ที่ได้จะอยู่ในรูปแบบ
-`{"prediction": 2.38}`
+`{"prediction": 4.029...}` (ประมาณ 4.03 หรือราว $403,000 — ทศนิยมตำแหน่งท้าย ๆ อาจต่างกันเล็กน้อยตามเครื่อง)
+
+ทดสอบด้วย PowerShell:
+```powershell
+Invoke-RestMethod -Uri http://127.0.0.1:5000/predict -Method Post -ContentType "application/json" -Body '{"features":[8.3,25.0,6.0,1.0,1200,3.0,34.2,-118.3]}'
+```
 
 ---
 ## 5. วิธีส่งงาน
